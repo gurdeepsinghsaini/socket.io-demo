@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>socket.io | demo</title>
+  <link href="main.css" rel="stylesheet">
+</head>
+
+<body>
+  <header class="header">Socket.io demo</header>
+
+  <main class="main-container">
+    <form class="user-form">
+      <label for="username"></label>
+      <input name="username" type="text" class="username" placeholder="enter username...">
+      <button type="submit">Enter Chat</button>
+    </form>
+    <div class="chat-container">
+      <div class="chat-sidebar">
+        <h3>Users</h3>
+        <ul id="userList">
+        </ul>
+      </div>
+      <div class="chat-messages"></div>
+    </div>
+    <form class="chat-form">
+      <input name="chatInput" class="chat-input">
+      <button class="chat-submit" type="submit">Send</button>
+    </form>
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.4/qs.min.js"
+    integrity="sha512-BHtomM5XDcUy7tDNcrcX1Eh0RogdWiMdXl3wJcKB3PFekXb3l5aDzymaTher61u6vEZySnoC/SAj2Y/p918Y3w=="
+    crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

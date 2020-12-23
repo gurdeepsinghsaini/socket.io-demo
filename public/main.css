@@ -1,0 +1,35 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  font-weight: 700;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chat-container {
+  display: none;
+  height: 450px;
+}
+
+.chat-messages {
+  height: 300px;
+  width: 300px;
+  overflow: scroll;
+}
+
+.chat-form {
+  display: none;
+}
