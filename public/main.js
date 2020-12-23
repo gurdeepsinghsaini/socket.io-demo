@@ -9,10 +9,11 @@ const socket = io()
 // add to dom
 function updateChat(message) {
   const div = document.createElement('div')
+  div.classList.add('message-container')
   div.innerHTML = `
-  <p>${message.username}</p>
-  <p>${message.date}</p>
-  <p>${message.post}</p
+  <p class="message__username">${message.username}</p>
+  <p class="message__date">${message.date}</p>
+  <p class="message__post">${message.post}</p
   `
   chatMessages.append(div)
 
@@ -33,8 +34,7 @@ userForm.addEventListener('submit', (e) => {
   // emit when new user joins
   socket.emit('addUser', e.target.username.value )
   userForm.style.display = 'none'
-  chatForm.style.display = 'block'
-  chatContainer.style.display = 'block'
+  chatContainer.style.display = 'grid'
 })
 
 
@@ -60,6 +60,7 @@ const populateUser = (users) => {
   userList.innerHTML = ''
   users.forEach(user => {
     const li = document.createElement('li')
+    li.classList.add('userList__item')
     li.innerText = user.username
     userList.append(li)
   })
