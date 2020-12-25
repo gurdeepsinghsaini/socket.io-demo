@@ -2,7 +2,9 @@ const userForm = document.querySelector('.user-form')
 const chatForm = document.querySelector('.chat-form')
 const chatMessages = document.querySelector('.chat-messages')
 const chatContainer = document.querySelector('.chat-container')
-
+const chatMessagesContainer = document.querySelector('.chat-messages-container')
+let targetUser;
+let currentUser;
 
 const socket = io()
 
@@ -21,7 +23,7 @@ function updateChat(message) {
 }
 
 // receiving active user list from server
-socket.on('userList', (users) =>{
+socket.on('userList', (users) => {
   populateUser(users)
 })
 
@@ -32,7 +34,8 @@ socket.on('message', (message) => updateChat(message))
 userForm.addEventListener('submit', (e) => {
   e.preventDefault()
   // emit when new user joins
-  socket.emit('addUser', e.target.username.value )
+  currentUser = e.target.username.value
+  socket.emit('addUser', e.target.username.value)
   userForm.style.display = 'none'
   chatContainer.style.display = 'grid'
 })
@@ -42,11 +45,11 @@ chatForm.addEventListener('submit', (e) => {
   e.preventDefault()
   let msg = e.target.chatInput.value
   msg = msg.trim()
-  if(!msg) {
+  if (!msg) {
     return false
   }
   // emit chat message
-  socket.emit('chatMessage', msg)
+  socket.emit('chatMessage', { msg, targetUser, currentUser })
 
   // reset input
   e.target.chatInput.value = ''
@@ -62,6 +65,20 @@ const populateUser = (users) => {
     const li = document.createElement('li')
     li.classList.add('userList__item')
     li.innerText = user.username
+    li.addEventListener('click', initiatePrivateChat)
     userList.append(li)
   })
+}
+
+const initiatePrivateChat = (e) => {
+  if (targetUser !== e.target.innerText) {
+    targetUser = e.target.innerText
+    // if (targetUser !== currentUser) {
+
+      chatMessages.innerHTML = ''
+
+      socket.emit('privateChat', { currentUser, targetUser })
+      chatMessagesContainer.style.display = 'flex'
+    // }
+  }
 }
