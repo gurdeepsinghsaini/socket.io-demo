@@ -32,7 +32,7 @@ io.on('connection', (socket) => {
   socket.on('chatMessage', (data) => {
     const user = getCurrentUser(socket.id)
     if (user) {
-      io.to(usersvtwo[data.targetUser]).emit('message', formattedMsg(user.username, data.msg))
+      socket.broadcast.to(usersvtwo[data.targetUser]).emit('message', formattedMsg(user.username, data.msg))
       socket.emit('message',formattedMsg(user.username, data.msg))
     }
   })
